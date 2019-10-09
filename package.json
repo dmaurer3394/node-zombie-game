@@ -1,0 +1,22 @@
+{
+  "name": "zombie-game",
+  "version": "1.0.0",
+  "description": "",
+  "main": "zombiegame.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dmaurer3394/node-zombie-game.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dmaurer3394/node-zombie-game/issues"
+  },
+  "homepage": "https://github.com/dmaurer3394/node-zombie-game#readme",
+  "dependencies": {
+    "inquirer": "^6.2.1"
+  }
+}
