@@ -23,14 +23,14 @@ function guessNumber() {
 
     var randomToGuess = Math.floor(Math.random() * 5) + 1;
     var randomHitPoints = Math.floor(Math.random() * 10) + 1;
-    var zombieCritNumber = Math.floor(Math.random() * 10) + 1;
-    var critChance = Math.floor(Math.random() * 10) + 1;
+    var zombieCritNumber = Math.floor(Math.random() * 8) + 1;
+    var critChance = Math.floor(Math.random() * 8) + 1;
 
     inquirer
         .prompt([
             {
                 type: "input",
-                message: "Guess a number between 1 & 5",
+                message: "Guess any number between 1 & 5",
                 name: "number"
             },
 
@@ -40,49 +40,54 @@ function guessNumber() {
             var numberPlusOne = userInput + 1;
             var numberMinusOne = userInput - 1;
 
-            console.log("===============================")
-            // console.log("random to guess: " + randomToGuess); 
-            // console.log("random hit points " + randomHitPoints); 
-            // console.log("user crit number: " + zombieCritNumber);
-            // console.log("crit chance " + critChance);
-            // console.log(parseInt(userInput));
-            // console.log(parseInt(numberPlusOne));
-            // console.log(parseInt(numberMinusOne));
-            // console.log("===============================")
-
-            if (zombieCritNumber === critChance) {
-                randomHitPoints = randomHitPoints * 2;
-                console.log("----- CRITICAL MISS -----");
-                randomMessage = Math.floor(Math.random() * critMissMessages.length);
-                console.log(critMissMessages[randomMessage]);
-                console.log("He hit you for " + randomHitPoints + " hit points")
-                userHealth -= randomHitPoints;
-            } else if (userInput === randomToGuess) {
-                randomHitPoints = randomHitPoints * 2;
-                console.log("----- CRITICAL HIT -----");
-                randomMessage = Math.floor(Math.random() * criticalMessages.length);
-                console.log(criticalMessages[randomMessage]);
-                console.log("You hit him for " + randomHitPoints + " hit points");
-                zombieHealth -= randomHitPoints;
-            } else if (userInput + 1 === randomToGuess || userInput - 1 === randomToGuess) {
-                console.log("You hit him for " + randomHitPoints + " hit points");
-                zombieHealth -=randomHitPoints;
-            } else {
-                console.log("You missed and he got you");
-                console.log("He hit you for " + randomHitPoints + " hit points");
-                userHealth -= randomHitPoints;
-            };
-
-            if (zombieHealth <= 0) {
+            if (userInput > 0 && userInput < 6) { 
                 console.log("===============================")
-                console.log("You struck the finishing blow. You're safe...for now.")
-                winGame();
-            } else if (userHealth <= 0) {
-                console.log("===============================")
-                console.log("You're bit! You're stating to feel weird...")
-                loseGame();
+                // console.log("random to guess: " + randomToGuess); 
+                // console.log("random hit points " + randomHitPoints); 
+                // console.log("user crit number: " + zombieCritNumber);
+                // console.log("crit chance " + critChance);
+                // console.log(parseInt(userInput));
+                // console.log(parseInt(numberPlusOne));
+                // console.log(parseInt(numberMinusOne));
+                // console.log("===============================")
+
+                if (zombieCritNumber === critChance) {
+                    randomHitPoints = randomHitPoints * 2;
+                    console.log("----- CRITICAL MISS -----");
+                    randomMessage = Math.floor(Math.random() * critMissMessages.length);
+                    console.log(critMissMessages[randomMessage]);
+                    console.log("He hit you for " + randomHitPoints + " hit points");
+                    userHealth -= randomHitPoints;
+                } else if (userInput === randomToGuess) {
+                    randomHitPoints = randomHitPoints * 2;
+                    console.log("----- CRITICAL HIT -----");
+                    randomMessage = Math.floor(Math.random() * criticalMessages.length);
+                    console.log(criticalMessages[randomMessage]);
+                    console.log("You hit him for " + randomHitPoints + " hit points");
+                    zombieHealth -= randomHitPoints;
+                } else if (userInput + 1 === randomToGuess || userInput - 1 === randomToGuess) {
+                    console.log("You hit him for " + randomHitPoints + " hit points");
+                    zombieHealth -=randomHitPoints;
+                } else {
+                    console.log("You missed and he got you");
+                    console.log("He hit you for " + randomHitPoints + " hit points");
+                    userHealth -= randomHitPoints;
+                };
+
+                if (zombieHealth <= 0) {
+                    console.log("===============================");
+                    console.log("You struck the finishing blow. You're safe...for now.");
+                    winGame();
+                } else if (userHealth <= 0) {
+                    console.log("===============================");
+                    console.log("You're bit! You're stating to feel weird...");
+                    loseGame();
+                } else {
+                    guessNumber();
+                }
             } else {
-            guessNumber()
+                console.log("Please guess any number between 1 & 5");
+                guessNumber();
             }
         })
 }
