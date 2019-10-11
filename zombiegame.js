@@ -1,6 +1,9 @@
 var inquirer = require("inquirer");
 var userHealth = 100;
 var zombieHealth = 50;
+var randomMessage = 0;
+var criticalMessages = ["You knocked his arm off!", "You got gud!", "You dropped your weapon, but it cut his foot off!", "With a swing, you got him right in the knee!", "Headshot!", "Right in the stomach! He sure felt that!", "In just a moment, you delivered a perfect strike!", "Swung for his head, hit his shoulder. It seems to be more effective..."];
+var critMissMessages = ["You really missed him this time...", "yOu ReAlLy WhIfFeD iT...", "I hope you weren't aiming for the ground...", "You do know this is life and death, right?", "You're not planting flowers, you're fighting a zombie!", "Next time, just aim for the torso...", "Swing and a miss..."];
 
 console.log("\nYou're caught in a zombie apocolypse!\nOn your daily trip to the city to find food, you encountered a zombie horde.\nYou were able to distract most of the herd, but one of them saw you!\nHe's running straight at you!");
 guessNumber();
@@ -50,13 +53,15 @@ function guessNumber() {
             if (zombieCritNumber === critChance) {
                 randomHitPoints = randomHitPoints * 2;
                 console.log("----- CRITICAL MISS -----");
-                console.log("yOu ReAlLy WhIfFeD iT...");
+                randomMessage = Math.floor(Math.random() * critMissMessages.length);
+                console.log(critMissMessages[randomMessage]);
                 console.log("He hit you for " + randomHitPoints + " hit points")
                 userHealth -= randomHitPoints;
             } else if (userInput === randomToGuess) {
                 randomHitPoints = randomHitPoints * 2;
                 console.log("----- CRITICAL HIT -----");
-                console.log("You got gud!");
+                randomMessage = Math.floor(Math.random() * criticalMessages.length);
+                console.log(criticalMessages[randomMessage]);
                 console.log("You hit him for " + randomHitPoints + " hit points");
                 zombieHealth -= randomHitPoints;
             } else if (userInput + 1 === randomToGuess || userInput - 1 === randomToGuess) {
@@ -69,9 +74,11 @@ function guessNumber() {
             };
 
             if (zombieHealth <= 0) {
+                console.log("===============================")
                 console.log("You struck the finishing blow. You're safe...for now.")
                 winGame();
             } else if (userHealth <= 0) {
+                console.log("===============================")
                 console.log("You're bit! You're stating to feel weird...")
                 loseGame();
             } else {
